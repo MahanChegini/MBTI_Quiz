@@ -157,6 +157,32 @@
       </select>
     </div>
 
+    <div class="question">
+      <label for="details">در فضا بیشتر به چی توجه می‌کنی؟</label>
+      <select id="details">
+        <option value="function">کارایی و عملکرد</option>
+        <option value="beauty">زیبایی و دکور</option>
+        <option value="cozy">راحتی و گرما</option>
+      </select>
+    </div>
+
+    <div class="question">
+      <label for="pattern">از الگوها و طرح‌های خاص لذت می‌بری یا سادگی رو ترجیح می‌دی؟</label>
+      <select id="pattern">
+        <option value="simple">سادگی</option>
+        <option value="patterned">الگوها و تنوع</option>
+      </select>
+    </div>
+
+    <div class="question">
+      <label for="objects">با اشیاء خاطره‌انگیز و قدیمی ارتباط برقرار می‌کنی؟</label>
+      <select id="objects">
+        <option value="yes">خیلی زیاد</option>
+        <option value="no">نه خیلی</option>
+        <option value="some">تا حدی</option>
+      </select>
+    </div>
+
     <button onclick="showResult()">نمایش پیشنهاد دکوراسیون</button>
 
     <div id="result" class="result" style="display: none;"></div>
@@ -169,37 +195,84 @@
   <script>
     function showResult() {
       const name = document.getElementById("name").value;
-      const focus = document.getElementById("focus").value;
-      const colors = document.getElementById("colors").value;
-      const order = document.getElementById("order").value;
-      const light = document.getElementById("light").value;
-      const socialEnergy = document.getElementById("socialEnergy").value;
-      const decision = document.getElementById("decision").value;
+      const scores = {
+        minimal: 0,
+        boho: 0,
+        scandi: 0,
+        classic: 0,
+        transitional: 0
+      };
 
-      let style = "";
-      let reason = "";
+      const selections = {
+        focus: document.getElementById("focus").value,
+        colors: document.getElementById("colors").value,
+        order: document.getElementById("order").value,
+        light: document.getElementById("light").value,
+        socialEnergy: document.getElementById("socialEnergy").value,
+        decision: document.getElementById("decision").value,
+        details: document.getElementById("details").value,
+        pattern: document.getElementById("pattern").value,
+        objects: document.getElementById("objects").value
+      };
 
-      if (focus === "alone" && colors === "neutral" && order === "order" && decision === "logic") {
-        style = "مینیمال (Minimalist)";
-        reason = "به خاطر روحیه تحلیلی، علاقه‌مندی به نظم و سادگی، سبک مینیمال با طراحی خلوت و مؤثر مناسب شماست.";
-      } else if (focus === "social" && colors === "bold" && order === "freedom" && socialEnergy === "energized") {
-        style = "بوهو (Bohemian)";
-        reason = "شما فردی پرانرژی، اجتماعی و رنگ‌دوست هستید؛ سبک بوهو با روح آزاد و رنگ‌های متنوع براتون ایده‌آله.";
-      } else if (colors === "natural" && light === "yes" && focus === "nature") {
-        style = "اسکاندیناوی (Scandinavian)";
-        reason = "طبیعت‌دوستی و علاقه‌مندی به نور طبیعی شما را به سمت سبک اسکاندیناوی با رنگ‌های ملایم و چوب طبیعی هدایت می‌کند.";
-      } else if (decision === "emotion" && colors === "elegant" && focus === "creative") {
-        style = "کلاسیک هنری (Artistic Classic)";
-        reason = "حساسیت احساسی، علاقه‌مندی به زیبایی‌شناسی و جزئیات، سبک کلاسیک هنری را برای شما مناسب می‌کند.";
+      // امتیازدهی
+      if (selections.focus === "alone") scores.minimal += 1;
+      if (selections.focus === "social") scores.boho += 1;
+      if (selections.focus === "creative") scores.classic += 1;
+      if (selections.focus === "nature") scores.scandi += 1;
+
+      if (selections.colors === "neutral") scores.minimal += 1;
+      if (selections.colors === "bold") scores.boho += 1;
+      if (selections.colors === "natural") scores.scandi += 1;
+      if (selections.colors === "elegant") scores.classic += 1;
+
+      if (selections.order === "order") scores.minimal += 1;
+      if (selections.order === "freedom") scores.boho += 1;
+      if (selections.order === "balanced") scores.transitional += 1;
+
+      if (selections.light === "yes") scores.scandi += 1;
+      if (selections.light === "no") scores.minimal += 1;
+
+      if (selections.socialEnergy === "energized") scores.boho += 1;
+      if (selections.socialEnergy === "drained") scores.minimal += 1;
+
+      if (selections.decision === "logic") scores.minimal += 1;
+      if (selections.decision === "emotion") scores.classic += 1;
+      if (selections.decision === "both") scores.transitional += 1;
+
+      if (selections.details === "function") scores.minimal += 1;
+      if (selections.details === "beauty") scores.classic += 1;
+      if (selections.details === "cozy") scores.boho += 1;
+
+      if (selections.pattern === "simple") scores.minimal += 1;
+      if (selections.pattern === "patterned") scores.boho += 1;
+
+      if (selections.objects === "yes") scores.classic += 1;
+      if (selections.objects === "some") scores.transitional += 1;
+
+      // پیدا کردن سبک(ها)
+      const maxScore = Math.max(...Object.values(scores));
+      const topStyles = Object.keys(scores).filter(key => scores[key] === maxScore);
+
+      const styleNames = {
+        minimal: "مینیمال",
+        boho: "بوهو",
+        scandi: "اسکاندیناوی",
+        classic: "کلاسیک هنری",
+        transitional: "ترنزیشنال"
+      };
+
+      let styleText;
+      if (topStyles.length === 1) {
+        styleText = `سبک پیشنهادی برای شما: <strong>${styleNames[topStyles[0]]}</strong>`;
       } else {
-        style = "ترنزیشنال (Transitional)";
-        reason = "ترکیب ویژگی‌های مختلف در شما نشان می‌دهد که سبک ترنزیشنال با ترکیبی از مدرن و کلاسیک انتخاب متعادلی برای شماست.";
+        const combo = topStyles.map(style => styleNames[style]).join(" با رگه‌هایی از ");
+        styleText = `ترکیب سبک‌های پیشنهادی: <strong>${combo}</strong>`;
       }
 
       document.getElementById("result").innerHTML =
         `<strong>${name}</strong> عزیز 🌟<br><br>` +
-        `پیشنهاد ما برای دکوراسیون فضای شما: <strong>${style}</strong><br><br>` +
-        `${reason}`;
+        styleText;
 
       document.getElementById("result").style.display = "block";
     }
