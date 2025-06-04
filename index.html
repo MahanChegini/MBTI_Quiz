@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تست دکوراسیون بر اساس شخصیت - Smilene</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Vazirmatn', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+      margin-top: 2rem;
+    }
+
+    .question {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    select, input[type="text"] {
+      width: 100%;
+      padding: 0.7rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-top: 0.3rem;
+    }
+
+    button {
+      background: #2b2b8c;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: bold;
+      width: 100%;
+      font-size: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .result {
+      margin-top: 2rem;
+      background: #f0f4ff;
+      border-right: 4px solid #2b2b8c;
+      padding: 1rem;
+      border-radius: 10px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #888;
+      padding-bottom: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>تست دکوراسیون بر اساس شخصیت (MBTI)</h1>
+    <p>تست پیشنهادی طراحی داخلی بر پایه شخصیت شما</p>
+  </header>
+
+  <div class="container">
+    <div class="question">
+      <label for="name">اسم شما چیه؟</label>
+      <input type="text" id="name" placeholder="مثلاً: ماهان">
+    </div>
+
+    <div class="question">
+      <label for="focus">تو زمان آزاد، ترجیح می‌دی چطور وقت بگذرونی؟</label>
+      <select id="focus">
+        <option value="alone">مطالعه، موزیک، تنهایی</option>
+        <option value="social">جمع‌های دوستانه و شلوغی</option>
+      </select>
+    </div>
+
+    <div class="question">
+      <label for="colors">چه نوع رنگ‌هایی بیشتر برات جذابه؟</label>
+      <select id="colors">
+        <option value="neutral">رنگ‌های خنثی و ملایم</option>
+        <option value="bold">رنگ‌های تند و جسورانه</option>
+      </select>
+    </div>
+
+    <div class="question">
+      <label for="order">به نظم علاقه‌مندی یا آزادی و بی‌نظمی؟</label>
+      <select id="order">
+        <option value="order">نظم و چارچوب</option>
+        <option value="freedom">آزادی و تنوع</option>
+      </select>
+    </div>
+
+    <div class="question">
+      <label for="light">روشنایی طبیعی برات مهمه؟</label>
+      <select id="light">
+        <option value="yes">بله، خیلی زیاد</option>
+        <option value="no">نه خیلی</option>
+      </select>
+    </div>
+
+    <button onclick="showResult()">نمایش پیشنهاد دکوراسیون</button>
+
+    <div id="result" class="result" style="display: none;"></div>
+  </div>
+
+  <footer>
+    &copy; 2025 Smilene - Interior Design Tools. All rights reserved. Crafted with care for architects & dreamers.
+  </footer>
+
+  <script>
+    function showResult() {
+      const name = document.getElementById("name").value;
+      const focus = document.getElementById("focus").value;
+      const colors = document.getElementById("colors").value;
+      const order = document.getElementById("order").value;
+      const light = document.getElementById("light").value;
+
+      let style = "";
+      let reason = "";
+
+      if (focus === "alone" && colors === "neutral" && order === "order") {
+        style = "مینیمال (Minimalist)";
+        reason = "چون شخصیتت اهل خلوت، آرامش و نظم هست، سبک مینیمال که خطوط ساده، رنگ‌های ملایم و چیدمان منظم داره، بهترین انتخابه.";
+      } else if (focus === "social" && colors === "bold" && order === "freedom") {
+        style = "بوهو (Bohemian)";
+        reason = "تو روحیه آزاد، رنگی و پُرجنبه‌ای داری؛ سبک بوهو با رنگ‌های پرانرژی و عناصر متنوع خیلی بهت میاد.";
+      } else if (colors === "neutral" && light === "yes") {
+        style = "اسکاندیناوی (Scandinavian)";
+        reason = "علاقه‌ات به نور طبیعی و رنگ‌های ملایم نشون می‌ده سبک اسکاندیناوی با چوب، نور و سادگی انتخاب خوبیه.";
+      } else if (focus === "social" && order === "order") {
+        style = "مدرن لوکس (Modern Luxury)";
+        reason = "چون هم نظم برات مهمه و هم دوست داری در جمع بدرخشی، طراحی مدرن با جزئیات لوکس خیلی برات مناسبه.";
+      } else {
+        style = "ترنزیشنال (Transitional)";
+        reason = "ترکیب علاقه‌هات نشون می‌ده باید بین کلاسیک و مدرن حرکت کنی؛ سبک ترنزیشنال بهترین تعادل رو ایجاد می‌کنه.";
+      }
+
+      document.getElementById("result").innerHTML =
+        `<strong>${name}</strong> عزیز 🌟<br><br>` +
+        `پیشنهاد ما برای دکوراسیون فضای شما: <strong>${style}</strong><br><br>` +
+        `${reason}`;
+
+      document.getElementById("result").style.display = "block";
+    }
+  </script>
+</body>
+
+</html>
