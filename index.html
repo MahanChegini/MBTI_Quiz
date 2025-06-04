@@ -107,6 +107,8 @@
       <select id="focus">
         <option value="alone">مطالعه، موزیک، تنهایی</option>
         <option value="social">جمع‌های دوستانه و شلوغی</option>
+        <option value="creative">نوشتن، نقاشی، کارهای خلاقانه</option>
+        <option value="nature">قدم زدن در طبیعت یا باغبانی</option>
       </select>
     </div>
 
@@ -115,6 +117,8 @@
       <select id="colors">
         <option value="neutral">رنگ‌های خنثی و ملایم</option>
         <option value="bold">رنگ‌های تند و جسورانه</option>
+        <option value="natural">رنگ‌های طبیعی مثل سبز، کرم، خاکی</option>
+        <option value="elegant">رنگ‌های شیک و مجلسی مثل طلایی، سورمه‌ای</option>
       </select>
     </div>
 
@@ -123,6 +127,7 @@
       <select id="order">
         <option value="order">نظم و چارچوب</option>
         <option value="freedom">آزادی و تنوع</option>
+        <option value="balanced">ترکیبی از هر دو</option>
       </select>
     </div>
 
@@ -131,6 +136,24 @@
       <select id="light">
         <option value="yes">بله، خیلی زیاد</option>
         <option value="no">نه خیلی</option>
+        <option value="depends">بستگی به حال و هوام داره</option>
+      </select>
+    </div>
+
+    <div class="question">
+      <label for="socialEnergy">بعد از تعامل اجتماعی، انرژی می‌گیری یا خسته می‌شی؟</label>
+      <select id="socialEnergy">
+        <option value="energized">انرژی می‌گیرم</option>
+        <option value="drained">خسته می‌شم</option>
+      </select>
+    </div>
+
+    <div class="question">
+      <label for="decision">بیشتر بر اساس منطق تصمیم می‌گیری یا احساس؟</label>
+      <select id="decision">
+        <option value="logic">منطق</option>
+        <option value="emotion">احساس</option>
+        <option value="both">هر دو با هم</option>
       </select>
     </div>
 
@@ -150,25 +173,27 @@
       const colors = document.getElementById("colors").value;
       const order = document.getElementById("order").value;
       const light = document.getElementById("light").value;
+      const socialEnergy = document.getElementById("socialEnergy").value;
+      const decision = document.getElementById("decision").value;
 
       let style = "";
       let reason = "";
 
-      if (focus === "alone" && colors === "neutral" && order === "order") {
+      if (focus === "alone" && colors === "neutral" && order === "order" && decision === "logic") {
         style = "مینیمال (Minimalist)";
-        reason = "چون شخصیتت اهل خلوت، آرامش و نظم هست، سبک مینیمال که خطوط ساده، رنگ‌های ملایم و چیدمان منظم داره، بهترین انتخابه.";
-      } else if (focus === "social" && colors === "bold" && order === "freedom") {
+        reason = "به خاطر روحیه تحلیلی، علاقه‌مندی به نظم و سادگی، سبک مینیمال با طراحی خلوت و مؤثر مناسب شماست.";
+      } else if (focus === "social" && colors === "bold" && order === "freedom" && socialEnergy === "energized") {
         style = "بوهو (Bohemian)";
-        reason = "تو روحیه آزاد، رنگی و پُرجنبه‌ای داری؛ سبک بوهو با رنگ‌های پرانرژی و عناصر متنوع خیلی بهت میاد.";
-      } else if (colors === "neutral" && light === "yes") {
+        reason = "شما فردی پرانرژی، اجتماعی و رنگ‌دوست هستید؛ سبک بوهو با روح آزاد و رنگ‌های متنوع براتون ایده‌آله.";
+      } else if (colors === "natural" && light === "yes" && focus === "nature") {
         style = "اسکاندیناوی (Scandinavian)";
-        reason = "علاقه‌ات به نور طبیعی و رنگ‌های ملایم نشون می‌ده سبک اسکاندیناوی با چوب، نور و سادگی انتخاب خوبیه.";
-      } else if (focus === "social" && order === "order") {
-        style = "مدرن لوکس (Modern Luxury)";
-        reason = "چون هم نظم برات مهمه و هم دوست داری در جمع بدرخشی، طراحی مدرن با جزئیات لوکس خیلی برات مناسبه.";
+        reason = "طبیعت‌دوستی و علاقه‌مندی به نور طبیعی شما را به سمت سبک اسکاندیناوی با رنگ‌های ملایم و چوب طبیعی هدایت می‌کند.";
+      } else if (decision === "emotion" && colors === "elegant" && focus === "creative") {
+        style = "کلاسیک هنری (Artistic Classic)";
+        reason = "حساسیت احساسی، علاقه‌مندی به زیبایی‌شناسی و جزئیات، سبک کلاسیک هنری را برای شما مناسب می‌کند.";
       } else {
         style = "ترنزیشنال (Transitional)";
-        reason = "ترکیب علاقه‌هات نشون می‌ده باید بین کلاسیک و مدرن حرکت کنی؛ سبک ترنزیشنال بهترین تعادل رو ایجاد می‌کنه.";
+        reason = "ترکیب ویژگی‌های مختلف در شما نشان می‌دهد که سبک ترنزیشنال با ترکیبی از مدرن و کلاسیک انتخاب متعادلی برای شماست.";
       }
 
       document.getElementById("result").innerHTML =
